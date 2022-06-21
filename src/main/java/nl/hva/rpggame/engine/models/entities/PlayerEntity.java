@@ -10,7 +10,7 @@ public class PlayerEntity extends Entity {
     private final int playerId;
 
     public PlayerEntity(final int playerId, String username, Image playerSprite, double worldX, double worldY) {
-        super(0, username, playerSprite, false, Game.TILE_SIZE, Game.TILE_SIZE, worldX, worldY);
+        super(0, username, playerSprite, false, Game.tileSize, Game.tileSize, worldX, worldY);
         this.playerId = playerId;
         Logger.logf("Init player %d: %s", playerId, name);
     }

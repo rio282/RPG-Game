@@ -23,8 +23,8 @@ public abstract class Engine extends JPanel implements Runnable {
 
 
     public Engine() {
+        setBackground(Color.DARK_GRAY);
         entities = new ArrayList<>();
-
         running = false;
         thread = new Thread(this);
     }
@@ -79,9 +79,14 @@ public abstract class Engine extends JPanel implements Runnable {
                 if (frameTimer > NANOS_IN_1_SECOND) {
                     // amount of times we drew a frame in the last second
                     currentFps = frameDrawCount;
-
                     frameDrawCount = 0;
                     frameTimer = 0;
+
+                    if (Game.DEV_MODE) {
+                        System.out.println("FPS: " + currentFps);
+                        System.out.printf("LFRT: %.2f ms\n", currentFrametimeMS); // Last Frame Render Time
+                        System.out.println();
+                    }
                 }
             }
         }

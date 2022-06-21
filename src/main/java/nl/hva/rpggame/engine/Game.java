@@ -7,15 +7,25 @@ import java.awt.*;
 
 public class Game extends JFrame {
 
+    // TODO: add getters and setters
     public static final String TITLE = "@RPG-Game!";
-    public static final int DEFAULT_WIDTH = 800;
-    public static final int DEFAULT_HEIGHT = 800;
+    public static final boolean DEV_MODE = true;
 
-    public static final int TILE_SIZE = 16;
-    public static final int WORLD_WIDTH = 1200;
-    public static final int WORLD_HEIGHT = 800;
+    public static final int ORIGINAL_TILE_SIZE = 16;
+    public static final int SCALE = 3;
 
+    public static final int SCREEN_COLS = 24;
+    public static final int SCREEN_ROWS = 16;
+    public static final int WORLD_COLS = 32;
+    public static final int WORLD_ROWS = 24;
 
+    public static int tileSize = ORIGINAL_TILE_SIZE * SCALE;
+    public static final int SCREEN_WIDTH = SCREEN_COLS * tileSize;
+    public static final int SCREEN_HEIGHT = SCREEN_ROWS * tileSize;
+    public static final int WORLD_WIDTH = WORLD_COLS * tileSize;
+    public static final int WORLD_HEIGHT = WORLD_ROWS * tileSize;
+
+    // game panel
     private Stage stage;
 
     public Game(final int width, final int height) {
@@ -23,21 +33,23 @@ public class Game extends JFrame {
         Logger.log("Setup window");
         setTitle(TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(width, height));
         setResizable(false);
-        setLocationRelativeTo(null);
 
         // setup game stage
         Logger.log("LOAD: stage");
         stage = new Stage();
         add(stage);
+        pack();
 
-        setVisible(true);
+        // center & show game window
         Logger.log("SHOW: game window");
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public Game() {
-        this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        this(SCREEN_WIDTH, SCREEN_HEIGHT);
     }
 
 
