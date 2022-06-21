@@ -1,10 +1,7 @@
-package nl.hva.pokebattle.engine;
+package nl.hva.rpggame.engine;
 
-
-import nl.hva.pokebattle.engine.gui.BattleOverlay;
-import nl.hva.pokebattle.engine.gui.ScreenOverlay;
-import nl.hva.pokebattle.engine.models.entities.Pokemon;
-import nl.hva.pokebattle.engine.models.entities.Trainer;
+import nl.hva.rpggame.engine.data.PlayerEntityDAO;
+import nl.hva.rpggame.engine.models.entities.PlayerEntity;
 
 import java.awt.*;
 
@@ -26,8 +23,7 @@ public class Stage extends Engine {
         super.paintComponent(g);
         try {
             graphics = (Graphics2D) g;
-		
-
+            entities.forEach(entity -> entity.draw(this, graphics));
         } finally {
             g.dispose();
             graphics.dispose();
@@ -44,6 +40,8 @@ public class Stage extends Engine {
 
     @Override
     protected void load() {
-
+        PlayerEntityDAO playerDAO = new PlayerEntityDAO();
+        PlayerEntity player = playerDAO.get(1);
+        entities.add(player);
     }
 }

@@ -1,9 +1,6 @@
-package nl.hva.pokebattle.engine;
+package nl.hva.rpggame.engine;
 
-import nl.hva.pokebattle.engine.gui.BattleOverlay;
-import nl.hva.pokebattle.engine.gui.ScreenOverlay;
-import nl.hva.pokebattle.utils.Logger;
-import org.apache.maven.plugin.logging.Log;
+import nl.hva.rpggame.utils.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,15 +10,15 @@ public class Game extends JFrame {
     public static final String TITLE = "@RPG-Game!";
     public static final int DEFAULT_WIDTH = 800;
     public static final int DEFAULT_HEIGHT = 800;
-    private int width, height;
 
-    private ScreenOverlay stageOverlay;
+    public static final int TILE_SIZE = 16;
+    public static final int WORLD_WIDTH = 1200;
+    public static final int WORLD_HEIGHT = 800;
+
+
     private Stage stage;
 
     public Game(final int width, final int height) {
-        this.width = width;
-        this.height = height;
-
         // setup window settings
         Logger.log("Setup window");
         setTitle(TITLE);

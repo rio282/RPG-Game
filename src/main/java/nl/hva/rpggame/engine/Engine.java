@@ -1,11 +1,7 @@
-package nl.hva.pokebattle.engine;
+package nl.hva.rpggame.engine;
 
-import nl.hva.pokebattle.engine.data.LevelDAO;
-import nl.hva.pokebattle.engine.data.PokemonDAO;
-import nl.hva.pokebattle.engine.models.entities.Pokemon;
-import nl.hva.pokebattle.engine.models.entities.Trainer;
-import nl.hva.pokebattle.engine.models.levels.Level;
-import nl.hva.pokebattle.utils.Logger;
+import nl.hva.rpggame.engine.models.entities.Entity;
+import nl.hva.rpggame.utils.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,10 +23,7 @@ public abstract class Engine extends JPanel implements Runnable {
 
 
     public Engine() {
-        pokemon = new ArrayList<>();
-        trainers = new Trainer[2];
-        pokemonDAO = new PokemonDAO();
-        levelDAO = new LevelDAO();
+        entities = new ArrayList<>();
 
         running = false;
         thread = new Thread(this);

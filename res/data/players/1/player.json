@@ -1,0 +1,9 @@
+{
+  "username": "Larry The Gamer",
+  "pos": {
+    "worldX": 100,
+    "worldY": 100
+  },
+  "hp": 100,
+  "atk": 100
+}

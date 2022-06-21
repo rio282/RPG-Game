@@ -1,6 +1,6 @@
-package nl.hva.pokebattle;
+package nl.hva.rpggame;
 
-import nl.hva.pokebattle.engine.Game;
+import nl.hva.rpggame.engine.Game;
 
 public class Main {
     public static void main(String[] args) {

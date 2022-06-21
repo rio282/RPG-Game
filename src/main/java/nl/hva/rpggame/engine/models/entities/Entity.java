@@ -1,22 +1,28 @@
-package nl.hva.pokebattle.engine.models.entities;
+package nl.hva.rpggame.engine.models.entities;
 
-import nl.hva.pokebattle.engine.Stage;
+import nl.hva.rpggame.engine.Stage;
 
 import java.awt.*;
 
 public abstract class Entity {
 
+    protected int id;
     protected String name;
-    protected boolean friendly;
     protected Image sprite;
-    protected int x, y;
+    protected boolean hostile;
     protected int width, height;
+    protected int screenX, screenY;
+    protected double worldX, worldY;
 
-
-    public Entity() {
-        name = "UNDEFINED";
-        width = 256;
-        height = width;
+    public Entity(int id, String name, Image sprite, boolean hostile, int width, int height, double worldX, double worldY) {
+        this.id = id;
+        this.name = name;
+        this.sprite = sprite; // TODO: change this into an array when we get multiple sprites working
+        this.hostile = hostile;
+        this.width = width;
+        this.height = height;
+        this.worldX = worldX;
+        this.worldY = worldY;
     }
 
     /**
@@ -35,16 +41,9 @@ public abstract class Entity {
      * @param g - our graphics object passed from our stage
      */
     public void draw(Stage stage, Graphics2D g) {
-        // draw horizontally mirrored
-        int drawX = x, drawWidth = width;
-        if (friendly) {
-            drawX = x + width;
-            drawWidth = -width;
-        }
-
         if (sprite == null) {
             g.setColor(Color.RED);
-            g.fillRect(x, y, width, height);
-        } else g.drawImage(sprite, drawX, y, drawWidth, height, stage);
+            g.fillRect(screenX, screenY, width, height);
+        } else g.drawImage(sprite, screenX, screenY, width, height, stage);
     }
 }

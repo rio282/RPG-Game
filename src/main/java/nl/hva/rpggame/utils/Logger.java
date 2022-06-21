@@ -1,4 +1,4 @@
-package nl.hva.pokebattle.utils;
+package nl.hva.rpggame.utils;
 
 import org.jetbrains.annotations.Nullable;
 
