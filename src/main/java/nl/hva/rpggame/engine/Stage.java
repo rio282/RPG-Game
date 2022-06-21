@@ -1,5 +1,6 @@
 package nl.hva.rpggame.engine;
 
+import nl.hva.rpggame.engine.controllers.InputMethod;
 import nl.hva.rpggame.engine.data.PlayerEntityDAO;
 import nl.hva.rpggame.engine.models.entities.Entity;
 import nl.hva.rpggame.engine.models.entities.PlayerEntity;
@@ -10,9 +11,11 @@ import java.util.Collections;
 public class Stage extends Engine {
 
     public Stage() {
-        setLayout(null);
-        setFocusable(true);
-        requestFocus();
+        super();
+    }
+
+    public static InputMethod getActiveInputMethod() {
+        return inputMethod;
     }
 
     /**

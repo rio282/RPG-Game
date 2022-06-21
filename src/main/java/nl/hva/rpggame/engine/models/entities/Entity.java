@@ -1,5 +1,6 @@
 package nl.hva.rpggame.engine.models.entities;
 
+import nl.hva.rpggame.engine.Game;
 import nl.hva.rpggame.engine.Stage;
 
 import java.awt.*;
@@ -8,22 +9,23 @@ public abstract class Entity {
 
     protected int id;
     protected String name;
+    protected EntityStats entityStats;
     protected Image sprite;
-    protected boolean hostile;
-    protected int width, height;
+    protected int width, height; // TODO: load in entity specific data later
     protected int screenX, screenY;
     protected double worldX, worldY;
 
-    public Entity(int id, String name, Image sprite, boolean hostile, int width, int height, double worldX, double worldY) {
+    public Entity(int id, String name, EntityStats entityStats, Image sprite, double worldX, double worldY) {
         // id will be 0 if entity is a player
         this.id = id;
         this.name = name;
+        this.entityStats = entityStats;
         this.sprite = sprite; // TODO: change this into an array when we get multiple sprites working
-        this.hostile = hostile;
-        this.width = width;
-        this.height = height;
         this.worldX = worldX;
         this.worldY = worldY;
+
+        width = Game.tileSize;
+        height = Game.tileSize;
     }
 
     /**
@@ -45,6 +47,9 @@ public abstract class Entity {
         if (sprite == null) {
             g.setColor(Color.RED);
             g.fillRect(screenX, screenY, width, height);
-        } else g.drawImage(sprite, screenX, screenY, width, height, stage);
+            return;
+        }
+
+        g.drawImage(sprite, screenX, screenY, width, height, stage);
     }
 }

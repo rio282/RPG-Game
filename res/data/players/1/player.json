@@ -1,12 +1,17 @@
 {
   "username": "Larry The Gamer",
   "pos": {
-    "worldX": 100,
-    "worldY": 100
+    "worldX": 100.0,
+    "worldY": 100.0
   },
-  "hp": 100,
-  "atk": 100,
+  "entityStats": {
+    "hp": 10.0,
+    "atk": 10.0,
+    "def": 1.0,
+    "speed": 4.0
+  },
   "inventory": {
-
+    "armor": {},
+    "items": []
   }
 }

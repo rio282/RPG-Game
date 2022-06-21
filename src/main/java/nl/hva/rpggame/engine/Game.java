@@ -29,7 +29,7 @@ public class Game extends JFrame {
     public static final int WORLD_HEIGHT = WORLD_ROWS * tileSize;
 
     // game panel
-    private Stage stage;
+    private static Stage stage;
 
     public Game(final int width, final int height) {
         // setup window settings
@@ -56,8 +56,37 @@ public class Game extends JFrame {
     }
 
 
-    public void start() {
+    public static void start() {
+        if (stage == null)
+            return;
+
         Logger.log("Start game");
         stage.start();
+    }
+
+    public static void stop() {
+        if (stage == null)
+            return;
+
+        Logger.log("Exit game");
+        stage.stop();
+    }
+
+    /**
+     * Gets monitor refresh rate by using java.awt; Will return 60 if refresh rate is unknown.
+     *
+     * @return refresh rate
+     */
+    public static int getMonitorRefreshRate() {
+        int refreshRate = 60;
+        GraphicsDevice[] gs = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+
+        // get max refresh rate (multiple monitors)
+        for (GraphicsDevice graphicsDevice : gs) {
+            DisplayMode dm = graphicsDevice.getDisplayMode();
+            refreshRate = Math.max(dm.getRefreshRate(), refreshRate);
+        }
+
+        return refreshRate;
     }
 }

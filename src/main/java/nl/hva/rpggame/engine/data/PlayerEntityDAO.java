@@ -1,6 +1,7 @@
 package nl.hva.rpggame.engine.data;
 
 import nl.hva.rpggame.engine.Game;
+import nl.hva.rpggame.engine.models.entities.EntityStats;
 import nl.hva.rpggame.engine.models.entities.PlayerEntity;
 import nl.hva.rpggame.utils.Logger;
 import org.json.JSONObject;
@@ -29,7 +30,7 @@ public class PlayerEntityDAO extends DAO<PlayerEntity> {
             double worldY = Game.WORLD_HEIGHT >> 1;
 
             // load player data
-            JSONObject playerDataJson = parseJsonFile(Path.of(playerFolder, "player.json").toString());
+            JSONObject playerDataJson = super.parseJsonFile(Path.of(playerFolder, "player.json").toString());
             if (!playerDataJson.has("username") || !playerDataJson.has("pos"))
                 throw new Exception("file: 'player.json' doesn't contain user data.");
 
@@ -37,9 +38,23 @@ public class PlayerEntityDAO extends DAO<PlayerEntity> {
             worldX = playerDataJson.optJSONObject("pos").optDouble("worldX", worldX);
             worldY = playerDataJson.optJSONObject("pos").optDouble("worldY", worldY);
 
-            // load player sprite & return player obj
+            // load player sprite(s)
             playerSprite = ImageIO.read(Path.of(playerFolder, "sprites", "idle.png").toFile());
-            return new PlayerEntity(id, username, playerSprite, worldX, worldY);
+
+            // load entity stats
+            double atk = 10.0;
+            double def = 1.0;
+            double hp = 10.0;
+            double speed = 4.0;
+
+            atk = playerDataJson.optJSONObject("entityStats").optDouble("atk", atk);
+            def = playerDataJson.optJSONObject("entityStats").optDouble("def", def);
+            hp = playerDataJson.optJSONObject("entityStats").optDouble("hp", hp);
+            speed = playerDataJson.optJSONObject("entityStats").optDouble("speed", speed);
+            EntityStats entityStats = new EntityStats(false, atk, def, hp, speed);
+
+            // return new player obj
+            return new PlayerEntity(id, username, entityStats, playerSprite, worldX, worldY);
         } catch (Exception e) {
             Logger.errf("Couldn't load player with id: %d (%s).", id, e.getMessage());
         }

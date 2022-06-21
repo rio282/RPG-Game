@@ -24,7 +24,7 @@ public class MapDAO extends DAO<Map> {
 
             return new Map();
         } catch (Exception e) {
-            Logger.errf("Couldn't load player with id: %d (%s).", id, e.getMessage());
+            Logger.errf("Couldn't load map with id: %d (%s).", id, e.getMessage());
         }
         return null;
     }

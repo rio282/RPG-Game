@@ -1,17 +1,24 @@
 package nl.hva.rpggame.engine;
 
+import nl.hva.rpggame.engine.controllers.InputMethod;
+import nl.hva.rpggame.engine.controllers.Keyboard;
 import nl.hva.rpggame.engine.models.entities.Entity;
 import nl.hva.rpggame.utils.Logger;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public abstract class Engine extends JPanel implements Runnable {
 
+    protected static final int FPS_CAP = Game.getMonitorRefreshRate();
+    protected static final int TICK_RATE = 60;
+
+    // game inputs
+    protected static InputMethod inputMethod;
+
     // engine stuff
-    protected static final int FPS_CAP = 60;
-    protected static final int TICK_RATE = 20;
     protected boolean running;
     protected Thread thread;
     protected Graphics2D graphics;
@@ -21,9 +28,21 @@ public abstract class Engine extends JPanel implements Runnable {
     // entities, ui components etc.
     protected ArrayList<Entity> entities;
 
-
     public Engine() {
+        initialize();
+
+        setLayout(null);
+        setDoubleBuffered(true);
         setBackground(Color.DARK_GRAY);
+
+        // TODO: if we add support for controllers this might need to change?
+        addKeyListener((KeyListener) inputMethod);
+        setFocusable(true);
+        requestFocus();
+    }
+
+    private void initialize() {
+        inputMethod = new Keyboard();
         entities = new ArrayList<>();
         running = false;
         thread = new Thread(this);
@@ -113,5 +132,12 @@ public abstract class Engine extends JPanel implements Runnable {
         Logger.log("Start game thread");
         running = true;
         thread.start();
+    }
+
+    public void stop() {
+        running = false;
+        thread.interrupt();
+        thread = null;
+        System.exit(0);
     }
 }
