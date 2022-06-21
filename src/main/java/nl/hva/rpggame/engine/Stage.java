@@ -1,6 +1,7 @@
 package nl.hva.rpggame.engine;
 
 import nl.hva.rpggame.engine.data.PlayerEntityDAO;
+import nl.hva.rpggame.engine.models.entities.Entity;
 import nl.hva.rpggame.engine.models.entities.PlayerEntity;
 
 import java.awt.*;
@@ -36,7 +37,7 @@ public class Stage extends Engine {
      */
     @Override
     protected void update() {
-
+        entities.forEach(Entity::update);
     }
 
     @Override

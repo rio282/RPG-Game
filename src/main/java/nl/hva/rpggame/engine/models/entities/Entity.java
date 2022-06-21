@@ -15,6 +15,7 @@ public abstract class Entity {
     protected double worldX, worldY;
 
     public Entity(int id, String name, Image sprite, boolean hostile, int width, int height, double worldX, double worldY) {
+        // id will be 0 if entity is a player
         this.id = id;
         this.name = name;
         this.sprite = sprite; // TODO: change this into an array when we get multiple sprites working

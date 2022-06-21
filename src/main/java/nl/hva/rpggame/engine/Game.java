@@ -8,17 +8,20 @@ import java.awt.*;
 public class Game extends JFrame {
 
     // TODO: add getters and setters
+
     public static final String TITLE = "@RPG-Game!";
     public static final boolean DEV_MODE = true;
 
     public static final int ORIGINAL_TILE_SIZE = 16;
     public static final int SCALE = 3;
 
+    // r,c
     public static final int SCREEN_COLS = 24;
     public static final int SCREEN_ROWS = 16;
     public static final int WORLD_COLS = 32;
     public static final int WORLD_ROWS = 24;
 
+    // w,h
     public static int tileSize = ORIGINAL_TILE_SIZE * SCALE;
     public static final int SCREEN_WIDTH = SCREEN_COLS * tileSize;
     public static final int SCREEN_HEIGHT = SCREEN_ROWS * tileSize;

@@ -17,7 +17,8 @@ public class PlayerEntity extends Entity {
 
     @Override
     public void update() {
-
+        screenX = (int) Math.floor((Game.SCREEN_WIDTH >> 1) - (Game.tileSize >> 1));
+        screenY = (int) Math.floor((Game.SCREEN_HEIGHT >> 1) - (Game.tileSize >> 1));
     }
 
     @Override
