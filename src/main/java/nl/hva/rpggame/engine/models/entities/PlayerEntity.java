@@ -10,7 +10,7 @@ public class PlayerEntity extends Entity {
 
     private final int playerId;
 
-    public PlayerEntity(int playerId, String username, EntityStats entityStats, Image playerSprite, double worldX, double worldY) {
+    public PlayerEntity(int playerId, String username, EntityStats entityStats, Image playerSprite, int worldX, int worldY) {
         super(0, username, entityStats, playerSprite, worldX, worldY);
         this.playerId = playerId;
         Logger.logf("Init player %d: %s", playerId, name);
@@ -19,28 +19,29 @@ public class PlayerEntity extends Entity {
     @Override
     public void update() {
         // center character on screen
-//        screenX = (int) Math.floor((Game.SCREEN_WIDTH >> 1) - (Game.tileSize >> 1));
-//        screenY = (int) Math.floor((Game.SCREEN_HEIGHT >> 1) - (Game.tileSize >> 1));
+        screenX = (int) Math.floor((Game.SCREEN_WIDTH >> 1) - (Game.tileSize >> 1));
+        screenY = (int) Math.floor((Game.SCREEN_HEIGHT >> 1) - (Game.tileSize >> 1));
 
+        // handle character inputs
         Stage.getActiveInputMethod().getActiveInputs().forEach(input -> {
             switch (input) {
                 case MOVE_FORWARD -> {
-                    screenY -= entityStats.speed();
+                    worldY -= entityStats.speed();
                 }
                 case MOVE_BACKWARD -> {
-                    screenY += entityStats.speed();
+                    worldY += entityStats.speed();
                 }
                 case MOVE_LEFT -> {
-                    screenX -= entityStats.speed();
+                    worldX -= entityStats.speed();
                 }
                 case MOVE_RIGHT -> {
-                    screenX += entityStats.speed();
+                    worldX += entityStats.speed();
                 }
                 case EXIT -> {
                     Game.stop();
                 }
                 default -> {
-
+                    // do nothing...
                 }
             }
         });

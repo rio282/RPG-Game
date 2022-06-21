@@ -26,8 +26,8 @@ public class PlayerEntityDAO extends DAO<PlayerEntity> {
             // default values
             String username = "ERROR";
             Image playerSprite = null;
-            double worldX = Game.WORLD_WIDTH >> 1;
-            double worldY = Game.WORLD_HEIGHT >> 1;
+            int worldX = Game.WORLD_WIDTH >> 1;
+            int worldY = Game.WORLD_HEIGHT >> 1;
 
             // load player data
             JSONObject playerDataJson = super.parseJsonFile(Path.of(playerFolder, "player.json").toString());
@@ -35,8 +35,8 @@ public class PlayerEntityDAO extends DAO<PlayerEntity> {
                 throw new Exception("file: 'player.json' doesn't contain user data.");
 
             username = playerDataJson.optString("username", username);
-            worldX = playerDataJson.optJSONObject("pos").optDouble("worldX", worldX);
-            worldY = playerDataJson.optJSONObject("pos").optDouble("worldY", worldY);
+            worldX = playerDataJson.optJSONObject("pos").optInt("worldX", worldX);
+            worldY = playerDataJson.optJSONObject("pos").optInt("worldY", worldY);
 
             // load player sprite(s)
             playerSprite = ImageIO.read(Path.of(playerFolder, "sprites", "idle.png").toFile());
@@ -45,12 +45,12 @@ public class PlayerEntityDAO extends DAO<PlayerEntity> {
             double atk = 10.0;
             double def = 1.0;
             double hp = 10.0;
-            double speed = 4.0;
+            int speed = 4;
 
             atk = playerDataJson.optJSONObject("entityStats").optDouble("atk", atk);
             def = playerDataJson.optJSONObject("entityStats").optDouble("def", def);
             hp = playerDataJson.optJSONObject("entityStats").optDouble("hp", hp);
-            speed = playerDataJson.optJSONObject("entityStats").optDouble("speed", speed);
+            speed = playerDataJson.optJSONObject("entityStats").optInt("speed", speed);
             EntityStats entityStats = new EntityStats(false, atk, def, hp, speed);
 
             // return new player obj

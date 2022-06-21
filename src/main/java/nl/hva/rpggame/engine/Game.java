@@ -1,5 +1,6 @@
 package nl.hva.rpggame.engine;
 
+import nl.hva.rpggame.engine.models.entities.PlayerEntity;
 import nl.hva.rpggame.utils.Logger;
 
 import javax.swing.*;
@@ -70,6 +71,10 @@ public class Game extends JFrame {
 
         Logger.log("Exit game");
         stage.stop();
+    }
+
+    public static PlayerEntity getPlayer() {
+        return stage.getPlayer();
     }
 
     /**

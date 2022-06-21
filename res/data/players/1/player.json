@@ -1,8 +1,8 @@
 {
   "username": "Larry The Gamer",
   "pos": {
-    "worldX": 100.0,
-    "worldY": 100.0
+    "worldX": 100,
+    "worldY": 100
   },
   "entityStats": {
     "hp": 10.0,

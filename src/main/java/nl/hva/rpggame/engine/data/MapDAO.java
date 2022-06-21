@@ -1,8 +1,7 @@
 package nl.hva.rpggame.engine.data;
 
-import nl.hva.rpggame.engine.models.levels.map.Map;
+import nl.hva.rpggame.engine.models.world.map.Map;
 import nl.hva.rpggame.utils.Logger;
-import org.json.JSONObject;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

@@ -3,6 +3,8 @@ package nl.hva.rpggame.engine;
 import nl.hva.rpggame.engine.controllers.InputMethod;
 import nl.hva.rpggame.engine.controllers.Keyboard;
 import nl.hva.rpggame.engine.models.entities.Entity;
+import nl.hva.rpggame.engine.models.entities.PlayerEntity;
+import nl.hva.rpggame.engine.models.world.World;
 import nl.hva.rpggame.utils.Logger;
 
 import javax.swing.*;
@@ -17,6 +19,9 @@ public abstract class Engine extends JPanel implements Runnable {
 
     // game inputs
     protected static InputMethod inputMethod;
+
+    protected static PlayerEntity player;
+    protected static World world;
 
     // engine stuff
     protected boolean running;
@@ -139,5 +144,9 @@ public abstract class Engine extends JPanel implements Runnable {
         thread.interrupt();
         thread = null;
         System.exit(0);
+    }
+
+    public PlayerEntity getPlayer() {
+        return player;
     }
 }
