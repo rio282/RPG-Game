@@ -32,6 +32,8 @@ public class PlayerEntityDAO implements DAO<PlayerEntity> {
 
             // load player data
             JSONObject playerDataJson = new JSONObject(Path.of(playerFolder, "player.json").toFile());
+            if (!(playerDataJson.has("username") && playerDataJson.has("worldX") && playerDataJson.has("worldY")))
+                throw new Exception("file: 'player.json' doesn't contain user data.");
 
             username = playerDataJson.getString("username");
             worldX = playerDataJson.getJSONObject("pos").getDouble("worldX");
@@ -40,9 +42,8 @@ public class PlayerEntityDAO implements DAO<PlayerEntity> {
             // load player sprite & return player obj
             playerSprite = ImageIO.read(Path.of(playerFolder, "sprites", "idle.png").toFile());
             return new PlayerEntity(id, username, playerSprite, worldX, worldY);
-        } catch (IOException e) {
-            Logger.errf("Couldn't load player with id: %d", id);
-            e.printStackTrace();
+        } catch (Exception e) {
+            Logger.errf("Couldn't load player with id: %d (%s)", id, e.getMessage());
         }
         return null;
     }

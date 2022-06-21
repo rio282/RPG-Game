@@ -4,6 +4,7 @@ import nl.hva.rpggame.engine.data.PlayerEntityDAO;
 import nl.hva.rpggame.engine.models.entities.PlayerEntity;
 
 import java.awt.*;
+import java.util.Collections;
 
 public class Stage extends Engine {
 
@@ -43,5 +44,9 @@ public class Stage extends Engine {
         PlayerEntityDAO playerDAO = new PlayerEntityDAO();
         PlayerEntity player = playerDAO.get(1);
         entities.add(player);
+
+
+        // remove null values to prevent errors
+        entities.removeAll(Collections.singleton(null));
     }
 }

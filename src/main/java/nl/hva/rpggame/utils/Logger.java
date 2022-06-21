@@ -20,7 +20,7 @@ public final class Logger {
     private static long start = Long.MAX_VALUE;
     private static long end = Long.MAX_VALUE;
 
-    public static void setShorthand(boolean shorthand) {
+    public static void useShorthand(boolean shorthand) {
         Logger.shorthand = shorthand;
     }
 
