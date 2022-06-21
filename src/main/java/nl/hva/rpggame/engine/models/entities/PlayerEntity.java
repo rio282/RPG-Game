@@ -4,6 +4,7 @@ import nl.hva.rpggame.engine.Game;
 import nl.hva.rpggame.utils.Logger;
 
 import java.awt.*;
+import java.util.UUID;
 
 public class PlayerEntity extends Entity {
 
@@ -17,6 +18,7 @@ public class PlayerEntity extends Entity {
 
     @Override
     public void update() {
+        // center character on screen
         screenX = (int) Math.floor((Game.SCREEN_WIDTH >> 1) - (Game.tileSize >> 1));
         screenY = (int) Math.floor((Game.SCREEN_HEIGHT >> 1) - (Game.tileSize >> 1));
     }

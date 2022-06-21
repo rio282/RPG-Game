@@ -50,43 +50,44 @@ public abstract class Engine extends JPanel implements Runnable {
         // to measure frame time
         long start, end;
 
-        while (thread != null) {
-            if (running && hasFocus()) {
-                currentTime = System.nanoTime();
-                delta = currentTime - lastTime;
-                deltaFrame += delta / DRAW_INTERVAL;
-                deltaTick += delta / TICK_INTERVAL;
-                frameTimer += delta;
-                lastTime = currentTime;
+        while (thread != null && running) {
+            // if game alt tabbed, skip
+            if (!hasFocus()) continue;
 
-                // every tick
-                if (deltaTick > 0) {
-                    update();
-                    deltaTick--;
-                }
-                // every frame
-                if (deltaFrame > 0) {
-                    start = System.nanoTime();
+            currentTime = System.nanoTime();
+            delta = currentTime - lastTime;
+            deltaFrame += delta / DRAW_INTERVAL;
+            deltaTick += delta / TICK_INTERVAL;
+            frameTimer += delta;
+            lastTime = currentTime;
 
-                    repaint(); // redraw screen
-                    deltaFrame--;
-                    frameDrawCount++;
+            // every tick
+            if (deltaTick > 0) {
+                update();
+                deltaTick--;
+            }
+            // every frame
+            if (deltaFrame > 0) {
+                start = System.nanoTime();
 
-                    end = System.nanoTime();
-                    currentFrametimeMS = (end - start) / MILLIS_IN_1_SECOND;
-                }
-                // if timer hits 1 second
-                if (frameTimer > NANOS_IN_1_SECOND) {
-                    // amount of times we drew a frame in the last second
-                    currentFps = frameDrawCount;
-                    frameDrawCount = 0;
-                    frameTimer = 0;
+                repaint(); // redraw screen
+                deltaFrame--;
+                frameDrawCount++;
 
-                    if (Game.DEV_MODE) {
-                        System.out.println("FPS: " + currentFps);
-                        System.out.printf("LFRT: %.2f ms\n", currentFrametimeMS); // Last Frame Render Time
-                        System.out.println();
-                    }
+                end = System.nanoTime();
+                currentFrametimeMS = (end - start) / MILLIS_IN_1_SECOND;
+            }
+            // if timer hits 1 second
+            if (frameTimer > NANOS_IN_1_SECOND) {
+                // amount of times we drew a frame in the last second
+                currentFps = frameDrawCount;
+                frameDrawCount = 0;
+                frameTimer = 0;
+
+                if (Game.DEV_MODE) {
+                    System.out.println("FPS: " + currentFps);
+                    System.out.printf("LFRT: %.2f ms\n", currentFrametimeMS); // Last Frame Render Time
+                    System.out.println();
                 }
             }
         }

@@ -1,0 +1,30 @@
+{
+  "worldName": "Cool Lovely World!",
+  "worldLevel": 1,
+  "entities": [
+    {
+      "worldId": "765cf13b-2dba-4d43-81a4-50773f2ee871",
+      "entityId": 1,
+      "pos": {
+        "worldX": 300,
+        "worldY": 200
+      }
+    },
+    {
+      "worldId": "165552e0-3f96-4330-86ae-c9466d10be2c",
+      "entityId": 1,
+      "pos": {
+        "worldX": 600,
+        "worldY": 600
+      }
+    },
+    {
+      "worldId": "eb78612c-9794-4daf-82d9-8c2f45cee26f",
+      "entityId": 1,
+      "pos": {
+        "worldX": 200,
+        "worldY": 400
+      }
+    }
+  ]
+}

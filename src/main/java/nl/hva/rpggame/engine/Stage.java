@@ -42,6 +42,8 @@ public class Stage extends Engine {
 
     @Override
     protected void load() {
+        // TODO: call map DAO
+
         PlayerEntityDAO playerDAO = new PlayerEntityDAO();
         PlayerEntity player = playerDAO.get(1);
         entities.add(player);
