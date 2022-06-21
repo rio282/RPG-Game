@@ -3,16 +3,14 @@ package nl.hva.rpggame.engine.data;
 import nl.hva.rpggame.engine.Game;
 import nl.hva.rpggame.engine.models.entities.PlayerEntity;
 import nl.hva.rpggame.utils.Logger;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-public class PlayerEntityDAO implements DAO<PlayerEntity> {
+public class PlayerEntityDAO extends DAO<PlayerEntity> {
 
     private ArrayList<PlayerEntity> players;
 
@@ -23,7 +21,7 @@ public class PlayerEntityDAO implements DAO<PlayerEntity> {
     @Override
     public PlayerEntity get(int id) {
         try {
-            final String playerFolder = Path.of(DAO.resourceFolder, "data", "players", String.valueOf(id)).toString();
+            final String playerFolder = Path.of(RESOURCE_FOLDER, "data", "players", String.valueOf(id)).toString();
             // default values
             String username = "ERROR";
             Image playerSprite = null;
@@ -31,19 +29,19 @@ public class PlayerEntityDAO implements DAO<PlayerEntity> {
             double worldY = Game.WORLD_HEIGHT >> 1;
 
             // load player data
-            JSONObject playerDataJson = new JSONObject(Path.of(playerFolder, "player.json").toFile());
-            if (!(playerDataJson.has("username") && playerDataJson.has("worldX") && playerDataJson.has("worldY")))
+            JSONObject playerDataJson = parseJsonFile(Path.of(playerFolder, "player.json").toString());
+            if (!playerDataJson.has("username") || !playerDataJson.has("pos"))
                 throw new Exception("file: 'player.json' doesn't contain user data.");
 
-            username = playerDataJson.getString("username");
-            worldX = playerDataJson.getJSONObject("pos").getDouble("worldX");
-            worldY = playerDataJson.getJSONObject("pos").getDouble("worldY");
+            username = playerDataJson.optString("username", username);
+            worldX = playerDataJson.optJSONObject("pos").optDouble("worldX", worldX);
+            worldY = playerDataJson.optJSONObject("pos").optDouble("worldY", worldY);
 
             // load player sprite & return player obj
             playerSprite = ImageIO.read(Path.of(playerFolder, "sprites", "idle.png").toFile());
             return new PlayerEntity(id, username, playerSprite, worldX, worldY);
         } catch (Exception e) {
-            Logger.errf("Couldn't load player with id: %d (%s)", id, e.getMessage());
+            Logger.errf("Couldn't load player with id: %d (%s).", id, e.getMessage());
         }
         return null;
     }
