@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public abstract class Engine extends JPanel implements Runnable {
 
-    protected static final int FPS_CAP = Game.getMonitorRefreshRate();
     protected static final int TICK_RATE = 60;
+    protected static int fpsCap = 60;
 
     // game inputs
     protected static InputMethod inputMethod;
@@ -37,10 +37,9 @@ public abstract class Engine extends JPanel implements Runnable {
         initialize();
 
         setLayout(null);
-        setDoubleBuffered(true);
         setBackground(Color.DARK_GRAY);
+        setDoubleBuffered(true);
 
-        // TODO: if we add support for controllers this might need to change?
         addKeyListener((KeyListener) inputMethod);
         setFocusable(true);
         requestFocus();
@@ -59,7 +58,7 @@ public abstract class Engine extends JPanel implements Runnable {
         // constants
         final double NANOS_IN_1_SECOND = 1e9;
         final double MILLIS_IN_1_SECOND = 1e6;
-        final double DRAW_INTERVAL = NANOS_IN_1_SECOND / FPS_CAP;
+        final double DRAW_INTERVAL = NANOS_IN_1_SECOND / fpsCap;
         final double TICK_INTERVAL = NANOS_IN_1_SECOND / TICK_RATE;
 
         // vars needed for game loop
@@ -75,9 +74,6 @@ public abstract class Engine extends JPanel implements Runnable {
         long start, end;
 
         while (thread != null && running) {
-            // if game alt tabbed, skip
-            if (!hasFocus()) continue;
-
             currentTime = System.nanoTime();
             delta = currentTime - lastTime;
             deltaFrame += delta / DRAW_INTERVAL;
@@ -92,6 +88,9 @@ public abstract class Engine extends JPanel implements Runnable {
             }
             // every frame
             if (deltaFrame > 0) {
+                // if game alt tabbed, skip
+                if (!hasFocus()) continue;
+
                 start = System.nanoTime();
 
                 repaint(); // redraw screen

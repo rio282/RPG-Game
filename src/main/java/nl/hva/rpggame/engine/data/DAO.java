@@ -2,8 +2,11 @@ package nl.hva.rpggame.engine.data;
 
 import org.json.JSONObject;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -22,11 +25,20 @@ public abstract class DAO<T> {
         return new JSONObject(readFile(filepath));
     }
 
-    abstract T get(int id);
+    public BufferedImage getTexture(int textureId) {
+        try {
+            return ImageIO.read(Path.of(RESOURCE_FOLDER, "textures", "tiles", String.format("tile_%d.png", textureId)).toFile());
+        } catch (IOException ignored) {
+        }
+        return null;
+    }
 
-    abstract ArrayList<T> getAll();
 
-    abstract boolean create(T item);
+    public abstract T get(int id);
 
-    abstract boolean save(T item);
+    public abstract ArrayList<T> getAll();
+
+    public abstract boolean create(T item);
+
+    public abstract boolean save(T item);
 }

@@ -1,14 +1,12 @@
 package nl.hva.rpggame.engine;
 
 import nl.hva.rpggame.engine.controllers.InputMethod;
+import nl.hva.rpggame.engine.data.MapDAO;
 import nl.hva.rpggame.engine.data.PlayerEntityDAO;
 import nl.hva.rpggame.engine.models.entities.Entity;
 import nl.hva.rpggame.engine.models.entities.EntityStats;
 import nl.hva.rpggame.engine.models.entities.PlayerEntity;
-import nl.hva.rpggame.engine.models.world.World;
-import nl.hva.rpggame.engine.models.world.map.Map;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.util.Collections;
 
@@ -52,9 +50,8 @@ public class Stage extends Engine {
 
     @Override
     protected void load() {
-        // TODO: call map DAO
-        world = new Map();
-
+        MapDAO mapDAO = new MapDAO();
+        world = mapDAO.get(1);
 
         PlayerEntityDAO playerDAO = new PlayerEntityDAO();
         PlayerEntity player = playerDAO.get(1);
