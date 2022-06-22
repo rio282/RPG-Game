@@ -15,6 +15,7 @@ public enum InputCommand {
     ZOOM_OUT,
 
     // game
+    DEBUG_INFO,
     PAUSE,
     EXIT // TODO: remove once we have a pause screen
 }

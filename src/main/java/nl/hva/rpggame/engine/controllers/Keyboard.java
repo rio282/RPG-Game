@@ -25,6 +25,7 @@ public class Keyboard extends InputMethod implements KeyListener {
         keymap.put(KeyEvent.VK_PLUS, InputCommand.ZOOM_IN);
         keymap.put(KeyEvent.VK_EQUALS, InputCommand.ZOOM_IN);
 
+        keymap.put(KeyEvent.VK_P, InputCommand.DEBUG_INFO);
         keymap.put(KeyEvent.VK_ESCAPE, InputCommand.EXIT);
     }
 

@@ -2,9 +2,11 @@ package nl.hva.rpggame.engine.models.entities;
 
 import nl.hva.rpggame.engine.Game;
 import nl.hva.rpggame.engine.Stage;
+import nl.hva.rpggame.engine.hud.DebugUI;
 import nl.hva.rpggame.utils.Logger;
 
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PlayerEntity extends Entity {
 
@@ -36,6 +38,22 @@ public class PlayerEntity extends Entity {
                 }
                 case MOVE_RIGHT -> {
                     worldX += entityStats.speed();
+                }
+                case DEBUG_INFO -> {
+                    // FIXME:
+                    //  now, what happens is that this gets called every update
+                    //  so if we're still pressing the key, its going to try to toggle again
+                    //  better off putting this in Keyboard.keyTyped()
+                    //  (because it is a switch and not a constant input)
+
+                    AtomicBoolean contains = new AtomicBoolean(false);
+                    Stage.getUIElements().forEach(uiElement -> {
+                        if (uiElement instanceof DebugUI)
+                            contains.set(true);
+                    });
+                    if (!contains.get())
+                        Stage.getUIElements().add(new DebugUI());
+                    else Stage.getUIElements().removeIf(elem -> elem instanceof DebugUI);
                 }
                 case EXIT -> {
                     Game.stop();

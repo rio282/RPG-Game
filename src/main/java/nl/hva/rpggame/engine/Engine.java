@@ -2,6 +2,7 @@ package nl.hva.rpggame.engine;
 
 import nl.hva.rpggame.engine.controllers.InputMethod;
 import nl.hva.rpggame.engine.controllers.Keyboard;
+import nl.hva.rpggame.engine.hud.UIElement;
 import nl.hva.rpggame.engine.models.entities.Entity;
 import nl.hva.rpggame.engine.models.entities.PlayerEntity;
 import nl.hva.rpggame.engine.models.world.World;
@@ -20,8 +21,10 @@ public abstract class Engine extends JPanel implements Runnable {
     // game inputs
     protected static InputMethod inputMethod;
 
+    // game objs
     protected static PlayerEntity player;
     protected static World world;
+    protected static ArrayList<UIElement> uiElements;
 
     // engine stuff
     protected boolean running;
@@ -46,8 +49,9 @@ public abstract class Engine extends JPanel implements Runnable {
     }
 
     private void initialize() {
-        inputMethod = new Keyboard();
         entities = new ArrayList<>();
+        uiElements = new ArrayList<>();
+        inputMethod = new Keyboard();
         running = false;
         thread = new Thread(this);
     }
@@ -91,14 +95,14 @@ public abstract class Engine extends JPanel implements Runnable {
                 // if game alt tabbed, skip
                 if (!hasFocus()) continue;
 
+                // draw frame & measure time
                 start = System.nanoTime();
-
-                repaint(); // redraw screen
-                deltaFrame--;
-                frameDrawCount++;
-
+                repaint();
                 end = System.nanoTime();
                 currentFrametimeMS = (end - start) / MILLIS_IN_1_SECOND;
+
+                deltaFrame--;
+                frameDrawCount++;
             }
             // if timer hits 1 second
             if (frameTimer > NANOS_IN_1_SECOND) {
@@ -147,5 +151,13 @@ public abstract class Engine extends JPanel implements Runnable {
 
     public PlayerEntity getPlayer() {
         return player;
+    }
+
+    public int getFPS() {
+        return currentFps;
+    }
+
+    public double getLFRT() {
+        return currentFrametimeMS;
     }
 }
