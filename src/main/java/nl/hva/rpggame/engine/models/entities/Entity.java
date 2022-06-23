@@ -2,7 +2,6 @@ package nl.hva.rpggame.engine.models.entities;
 
 import nl.hva.rpggame.engine.Game;
 import nl.hva.rpggame.engine.Stage;
-import nl.hva.rpggame.engine.models.world.Tile;
 
 import java.awt.*;
 
@@ -66,5 +65,21 @@ public class Entity {
 
     public Point getScreenPos() {
         return new Point(screenX, screenY);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public EntityStats getEntityStats() {
+        return entityStats;
+    }
+
+    public boolean isColliding() {
+        return colliding;
     }
 }

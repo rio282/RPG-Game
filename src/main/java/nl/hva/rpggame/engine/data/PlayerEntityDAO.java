@@ -41,12 +41,13 @@ public class PlayerEntityDAO extends DAO<PlayerEntity> {
             // load player sprite(s)
             playerSprite = ImageIO.read(Path.of(playerFolder, "sprites", "idle.png").toFile());
 
-            // load entity stats
+            // set default entity stats
             double atk = 10.0;
             double def = 1.0;
             double hp = 10.0;
             int speed = 4;
 
+            // load entity stats into obj
             atk = playerDataJson.optJSONObject("entityStats").optDouble("atk", atk);
             def = playerDataJson.optJSONObject("entityStats").optDouble("def", def);
             hp = playerDataJson.optJSONObject("entityStats").optDouble("hp", hp);

@@ -3,10 +3,11 @@ package nl.hva.rpggame.engine;
 import nl.hva.rpggame.engine.controllers.InputMethod;
 import nl.hva.rpggame.engine.data.MapDAO;
 import nl.hva.rpggame.engine.data.PlayerEntityDAO;
+import nl.hva.rpggame.engine.hud.PlayerUI;
 import nl.hva.rpggame.engine.hud.UIElement;
 import nl.hva.rpggame.engine.models.entities.Entity;
 import nl.hva.rpggame.engine.models.entities.EntityStats;
-import nl.hva.rpggame.engine.models.entities.PlayerEntity;
+import nl.hva.rpggame.utils.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class Stage extends Engine {
             if (world != null) world.draw(graphics);
             entities.forEach(entity -> entity.draw(this, graphics));
             uiElements.forEach(uiElement -> uiElement.draw(this, graphics));
+        } catch (Exception e) {
+            Logger.errf("Caught exception: %s", e.getMessage());
         } finally {
             g.dispose();
             graphics.dispose();
@@ -64,9 +67,8 @@ public class Stage extends Engine {
 
         // ENTITIES
         PlayerEntityDAO playerDAO = new PlayerEntityDAO();
-        PlayerEntity player = playerDAO.get(1);
-        Engine.player = player;
-        entities.add(player);
+        Engine.player = playerDAO.get(1);
+        entities.add(Engine.player);
 
         EntityStats stats = new EntityStats(false, 4, 4, 4, 4);
         entities.add(new Entity(1, "Entity1", stats, null, 150, 150));
@@ -75,6 +77,7 @@ public class Stage extends Engine {
         entities.removeAll(Collections.singleton(null));
 
         // UI
-//        uiElements.add(new DebugUI());
+        Engine.playerUI = new PlayerUI();
+        uiElements.add(Engine.playerUI);
     }
 }

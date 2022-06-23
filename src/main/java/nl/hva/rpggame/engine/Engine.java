@@ -2,6 +2,7 @@ package nl.hva.rpggame.engine;
 
 import nl.hva.rpggame.engine.controllers.InputMethod;
 import nl.hva.rpggame.engine.controllers.Keyboard;
+import nl.hva.rpggame.engine.hud.PlayerUI;
 import nl.hva.rpggame.engine.hud.UIElement;
 import nl.hva.rpggame.engine.models.entities.Entity;
 import nl.hva.rpggame.engine.models.entities.PlayerEntity;
@@ -25,6 +26,7 @@ public abstract class Engine extends JPanel implements Runnable {
     protected static PlayerEntity player;
     protected static World world;
     protected static ArrayList<UIElement> uiElements;
+    protected static PlayerUI playerUI;
 
     // engine stuff
     protected boolean running;
@@ -46,6 +48,14 @@ public abstract class Engine extends JPanel implements Runnable {
         addKeyListener((KeyListener) inputMethod);
         setFocusable(true);
         requestFocus();
+    }
+
+    public static PlayerEntity getPlayer() {
+        return player;
+    }
+
+    public static World getWorld() {
+        return world;
     }
 
     private void initialize() {
@@ -147,10 +157,6 @@ public abstract class Engine extends JPanel implements Runnable {
         thread.interrupt();
         thread = null;
         System.exit(0);
-    }
-
-    public PlayerEntity getPlayer() {
-        return player;
     }
 
     public int getFPS() {
